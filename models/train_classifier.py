@@ -13,9 +13,6 @@ from sklearn.multioutput import MultiOutputClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
 from sklearn.model_selection import GridSearchCV
-
-
-
 import joblib
 
 nltk.download("stopwords")
@@ -39,7 +36,7 @@ def load_data(database_filepath):
     Y = df[Y_columns]
     return X, Y, Y_columns
 
-
+# index webpage displays cool visuals and receives user input text for model
 def tokenize(text):
     '''The function takes a string input and return a list of processed tokens
     INPUT:
@@ -76,7 +73,6 @@ def build_model():
 #         'clf__estimator__n_estimators': [5,10,50]
 #         'clf__estimator__max_depth' : [5,50,100]
     }
-
     cv = GridSearchCV(pipeline, param_grid=parameters)
     return cv
 
