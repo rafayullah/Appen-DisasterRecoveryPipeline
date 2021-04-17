@@ -58,7 +58,7 @@ From the Training set, the app displays:
 
 
 ## Authors
-* [Rafay Ullah Choudhary](https://github.com/rafayullah
+* [Rafay Ullah Choudhary](https://github.com/rafayullah)
 
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
