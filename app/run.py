@@ -1,36 +1,30 @@
 import json
 import plotly
 import pandas as pd
-
+import nltk
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
-
+from nltk.corpus import stopwords
 from flask import Flask
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar, Heatmap
-# from sklearn.externals import joblib
 from sqlalchemy import create_engine
-
 import re
 import joblib
-from nltk.corpus import stopwords
-import nltk
+
+
 nltk.download('stopwords')
 
 app = Flask(__name__)
 
-# def tokenize(text):
-#     tokens = word_tokenize(text)
-#     lemmatizer = WordNetLemmatizer()
-
-#     clean_tokens = []
-#     for tok in tokens:
-#         clean_tok = lemmatizer.lemmatize(tok).lower().strip()
-#         clean_tokens.append(clean_tok)
-
-#     return clean_tokens
-
+# Tokenizing function for Vectorizer
 def tokenize(text):
+    '''The function takes a string input and return a list of processed tokens
+    INPUT:
+    text: string containing input text
+    RETURNS:
+    lemmed: list of tokens
+    '''
     text = text.lower()
     words = re.findall("[a-zA-Z]+", text)
     
@@ -55,15 +49,12 @@ model = joblib.load("models/classifier.pkl")
 @app.route('/')
 @app.route('/index')
 def index():
-    
     # extract data needed for visuals
-    # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
     cat_df = df.iloc[:,3:]
     
     # create visuals
-    # TODO: Below is an example - modify to create your own visuals
     graphs = [
         {
             'data': [
@@ -83,7 +74,7 @@ def index():
                 }
             }
         },
-{
+        {
             'data': [
                 Heatmap(
                     x = cat_df.columns,
@@ -130,8 +121,5 @@ def go():
 def main():
     app.run(host='0.0.0.0', port=3001, debug=True)
 
-
 if __name__ == '__main__':
     main()
-    
-#     https://view6914b2f4-3001.udacity-student-workspaces.com
