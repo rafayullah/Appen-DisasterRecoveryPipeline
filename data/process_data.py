@@ -28,7 +28,7 @@ def get_categories_series(raw):
     for i in raw:
         col,val = i.split('-')[0],i.split('-')[1]
         parsed[col] = int(val)
-    return pd.Series(parsed)
+    return pd.Series(parsed).astype('bool')
 
 def clean_data(df):
     '''This function expands the categories feature into separate columns and their respective values and returns the dataframe
@@ -56,7 +56,7 @@ def save_data(df, database_filename):
     RETURN: True
     '''
     engine = create_engine('sqlite:///' + database_filename)
-    df.to_sql(database_filename, engine, index=False)
+    df.to_sql(database_filename, if_exists='replace', con=engine, index=False)
     return True  
 
 
